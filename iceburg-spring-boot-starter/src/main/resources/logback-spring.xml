@@ -20,7 +20,7 @@
   </springProfile>
 
   <logger name="org.springframework.boot.autoconfigure.logging" level="info" />
-  <logger name="net.iceburg.boot.starter.LogDump" level="trace" />
+  <logger name="net.iceburg.boot.starter.SayHello" level="trace" />
   <logger name="net.iceburg" level="warn" />
 
 </configuration>

@@ -9,11 +9,14 @@ import net.iceburg.boot.starter.autoconfigure.LogAutoConfiguration;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = LogAutoConfiguration.class)
-public class LogAutoConfigurationTest {
+public class SayHelloAutoConfigurationTest {
 
   @Test
   public void whenSpringContextIsBootstrapped_thenNoExceptions() {
   }
+
+  // @TODO implement test that confirms JSON output is used by !dev and !local profiles
+  // @TODO implement test that enables tracing on iceburg loggers based on iceburg.log.trace_enabled propery
 
   // @TODO implement more testing
   // https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-test-autoconfig

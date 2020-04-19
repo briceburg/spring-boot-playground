@@ -4,7 +4,7 @@ spring:
     name: ${project.name}
   profiles:
     active:
-      - dev
+      - foo
 
 iceburg:
   foo: bar
