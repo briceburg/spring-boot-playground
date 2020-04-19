@@ -43,4 +43,6 @@ dependencyManagement {
 	}
 }
 
-compileJava.dependsOn(processResources)
+test {
+  useJUnitPlatform()
+}

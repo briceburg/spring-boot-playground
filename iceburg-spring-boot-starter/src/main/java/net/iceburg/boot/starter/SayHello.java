@@ -1,5 +1,7 @@
 package net.iceburg.boot.starter;
 
+import net.iceburg.boot.starter.config.IceburgConstant;
+
 import lombok.extern.slf4j.Slf4j;
 import static net.logstash.logback.argument.StructuredArguments.*;
 
@@ -45,11 +47,6 @@ public class SayHello {
   		kv("build.time", buildProperties.getTime())
   	);
 
-    // TODO -- base on a property.
-  	log.trace("This is a TRACE message");
-  	log.debug("This is a DEBUG message");
-    log.info("This is an INFO message");
-    log.warn("This is a WARN message");
-    log.error("This is an ERROR message");
+    log.trace("trace enabled in the {} namespace", IceburgConstant.LOGGER_NS);
   }
 }

@@ -10,10 +10,10 @@ import lombok.Data;
 @ConfigurationProperties("iceburg")
 public class IceburgProperties {
 
-  private List<String> validProfiles = List.of(
+  public List<String> validProfiles = List.of(
     IceburgConstant.PROFILE_CLOUD_AWS,
     IceburgConstant.PROFILE_LOCAL
   );
 
-  private Boolean traceEnabled = false;
+  public Boolean traceEnabled = true;
 }
