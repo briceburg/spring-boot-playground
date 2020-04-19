@@ -1,0 +1,10 @@
+---
+spring:
+  application:
+    name: ${project.name}
+  profiles:
+    active:
+      - dev
+
+iceburg:
+  foo: bar

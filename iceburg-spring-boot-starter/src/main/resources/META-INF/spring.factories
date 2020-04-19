@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  net.iceburg.boot.starter.autoconfigure.LogAutoConfiguration
