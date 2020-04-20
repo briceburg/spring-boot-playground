@@ -22,11 +22,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(OutputCaptureExtension.class)
-//@SpringBootTest
 public class SayHelloAutoConfigurationTests {
 
   private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-    .withConfiguration(AutoConfigurations.of(SayHelloAutoConfiguration.class,LoggerAutoConfiguration.class));
+    .withConfiguration(AutoConfigurations.of(SayHelloAutoConfiguration.class));
 
 
   @Test
@@ -42,17 +41,16 @@ public class SayHelloAutoConfigurationTests {
 
 
   @Test
-  @Disabled
 	public void tracesPrintWhenEnabled(CapturedOutput capturedOutput) {
     this.contextRunner.withUserConfiguration(BaseConfiguration.class)
       .withPropertyValues("test-name=withConfiguredJobAndTrigger")
       //withSystemProperties("spring.profiles.active=UNITTEST")
   		.run((context) -> {
   			assertThat(context).hasSingleBean(SayHello.class);
-        //assertThat(context).hasBean("sayHello");
+
         SayHello sayHello = context.getBean(SayHello.class);
         sayHello.msg(context);
-        assertThat(capturedOutput).contains("trace enabled").contains("net.iceburg");
+        assertThat(capturedOutput).contains("net.iceburg");
   		});
 	}
 

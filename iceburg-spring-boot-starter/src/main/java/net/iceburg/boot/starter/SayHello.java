@@ -1,6 +1,7 @@
 package net.iceburg.boot.starter;
 
 import net.iceburg.boot.starter.config.IceburgConstant;
+import java.time.Instant;
 
 import lombok.extern.slf4j.Slf4j;
 import static net.logstash.logback.argument.StructuredArguments.*;
@@ -22,7 +23,7 @@ public class SayHello {
   @Value("${spring.application.name}")
   private String applicationName;
 
-  @Autowired
+  @Autowired(required = false)
   BuildProperties buildProperties;
 
   @EventListener
@@ -32,6 +33,9 @@ public class SayHello {
 
   public void msg(ApplicationContext context) {
 
+    String buildVersion = buildProperties == null ? "unknown" : buildProperties.getVersion();
+    Instant buildTime = buildProperties == null ? Instant.now() : buildProperties.getTime();
+
   	log.info("{} v{}",
   		v("iceburg.starter.name", this.getClass().getPackage().getImplementationTitle()),
   		v("iceburg.starter.version", this.getClass().getPackage().getImplementationVersion())
@@ -39,9 +43,9 @@ public class SayHello {
 
   	log.info("{} v{}: {} {}",
   		v("spring.application.name", applicationName),
-  		v("build.version", buildProperties.getVersion()),
+  		v("build.version", buildVersion),
   		kv("spring.profiles.active", context.getEnvironment().getActiveProfiles()),
-  		kv("build.time", buildProperties.getTime())
+  		kv("build.time", buildTime)
   	);
 
     log.trace("trace enabled in the {} namespace", IceburgConstant.LOGGER_NS);

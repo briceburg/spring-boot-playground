@@ -1,4 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   net.iceburg.boot.starter.autoconfigure.SayHelloAutoConfiguration,\
   net.iceburg.boot.starter.autoconfigure.LoggerAutoConfiguration,\
-  net.iceburg.boot.starter.autoconfigure.AWSAutoConfiguration
+  net.iceburg.boot.starter.autoconfigure.AWSAutoConfiguration,\
+  net.iceburg.boot.starter.autoconfigure.AskJeevesAutoConfiguration
