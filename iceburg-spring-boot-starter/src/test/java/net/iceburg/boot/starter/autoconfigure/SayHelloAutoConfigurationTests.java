@@ -51,7 +51,7 @@ public class SayHelloAutoConfigurationTests {
   			assertThat(context).hasSingleBean(SayHello.class);
         //assertThat(context).hasBean("sayHello");
         SayHello sayHello = context.getBean(SayHello.class);
-        sayHello.msg();
+        sayHello.msg(context);
         assertThat(capturedOutput).contains("trace enabled").contains("net.iceburg");
   		});
 	}
