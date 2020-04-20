@@ -1,0 +1,51 @@
+---
+version: '3.7'
+
+#
+# iceburg-local stack. see .env for default settings
+#   @NOTE: keep versions of services pegged at their AWS deployed equivalent
+#
+
+services:
+  local-kms:
+    image: nsmithuk/local-kms:3.3.1
+    environment:
+      KMS_ACCOUNT_ID: 111122223333
+      KMS_REGION: us-east-1
+    volumes:
+      - ./fixtures/kms-seed-keys.yml:/init/seed.yaml:ro
+    ports:
+      - ${LOCAL_KMS_PORT}:8080
+
+  minio:
+    image: minio/minio:RELEASE.2020-03-19T21-49-00Z
+    entrypoint: sh
+    command: -c 'mkdir -p /data/test-bucket && minio server /data'
+    volumes:
+      - ./data/minio:/data
+    ports:
+      - ${LOCAL_MINIO_PORT}:9000
+
+
+  postgres:
+    image: postgres:11.3
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD:
+      POSTGRES_DB: postgres
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - ${LOCAL_POSTGRES_PORT}:5432
+
+  proxy:
+    image: haproxy:2.1-alpine
+    volumes:
+      - ./fixtures/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    ports:
+      - ${LOCAL_PROXY_PORT}:80
+
+  redis:
+    image: redis:5.0.5
+    ports:
+      - ${LOCAL_REDIS_PORT}:6379
