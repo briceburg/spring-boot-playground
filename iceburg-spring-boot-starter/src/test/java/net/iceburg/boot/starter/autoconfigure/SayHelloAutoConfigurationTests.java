@@ -1,8 +1,11 @@
 package net.iceburg.boot.starter.autoconfigure;
 
 import net.iceburg.boot.starter.SayHello;
+import net.iceburg.boot.starter.autoconfigure.SayHelloAutoConfiguration;
+import net.iceburg.boot.starter.autoconfigure.LoggerAutoConfiguration;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -14,29 +17,42 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import org.springframework.boot.test.context.SpringBootTest;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(OutputCaptureExtension.class)
+//@SpringBootTest
 public class SayHelloAutoConfigurationTests {
 
   private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-    .withConfiguration(AutoConfigurations.of(SayHelloAutoConfiguration.class));
+    .withConfiguration(AutoConfigurations.of(SayHelloAutoConfiguration.class,LoggerAutoConfiguration.class));
 
 
   @Test
-  public void whenSpringContextIsBootstrapped_thenNoExceptions() {
+  public void contextLoads(CapturedOutput capturedOutput) {
+    assertThat("foo").isEqualTo("foo");
   }
 
+  // @TODO implement test that confirms JSON output is used by !dev and !local profiles
+
+  // @TODO implement more testing
+  // https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-test-autoconfig
+
+
 
   @Test
+  @Disabled
 	public void tracesPrintWhenEnabled(CapturedOutput capturedOutput) {
     this.contextRunner.withUserConfiguration(BaseConfiguration.class)
       .withPropertyValues("test-name=withConfiguredJobAndTrigger")
+      //withSystemProperties("spring.profiles.active=UNITTEST")
   		.run((context) -> {
   			assertThat(context).hasSingleBean(SayHello.class);
+        //assertThat(context).hasBean("sayHello");
         SayHello sayHello = context.getBean(SayHello.class);
         sayHello.msg();
-        assertThat(capturedOutput).contains("foooo").contains("baaaarr");
+        assertThat(capturedOutput).contains("trace enabled").contains("net.iceburg");
   		});
 	}
 
@@ -45,10 +61,5 @@ public class SayHelloAutoConfigurationTests {
 
   }
 
-  // @TODO implement test that confirms JSON output is used by !dev and !local profiles
-  // @TODO implement test that enables tracing on iceburg loggers based on iceburg.log.trace_enabled propery
-
-  // @TODO implement more testing
-  // https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-test-autoconfig
 
 }

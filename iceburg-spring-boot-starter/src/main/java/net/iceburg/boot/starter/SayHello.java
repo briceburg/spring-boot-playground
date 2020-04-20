@@ -19,9 +19,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class SayHello {
 
-  @Autowired
-  private ApplicationContext applicationContext;
-
   @Value("${spring.application.name}")
   private String applicationName;
 
@@ -30,10 +27,10 @@ public class SayHello {
 
   @EventListener
   public void handleContextStart(final ContextRefreshedEvent event) {
-  	this.msg();
+  	this.msg(event.getApplicationContext());
   }
 
-  public void msg() {
+  public void msg(ApplicationContext context) {
 
   	log.info("{} v{}",
   		v("iceburg.starter.name", this.getClass().getPackage().getImplementationTitle()),
@@ -43,7 +40,7 @@ public class SayHello {
   	log.info("{} v{}: {} {}",
   		v("spring.application.name", applicationName),
   		v("build.version", buildProperties.getVersion()),
-  		kv("spring.profiles.active", applicationContext.getEnvironment().getActiveProfiles()),
+  		kv("spring.profiles.active", context.getEnvironment().getActiveProfiles()),
   		kv("build.time", buildProperties.getTime())
   	);
 
