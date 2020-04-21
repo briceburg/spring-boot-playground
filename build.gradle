@@ -1,0 +1,18 @@
+plugins {
+  id 'com.avast.gradle.docker-compose' version '0.10.10'
+  // Documentation: https://github.com/avast/gradle-docker-compose-plugin
+  // Documentation: https://bmuschko.com/blog/gradle-docker-compose/
+}
+
+dockerCompose {
+  pushServices = [''] // prevent publishing by mistake
+  removeOrphans = true
+  dockerComposeWorkingDirectory = 'stacks.d/iceburg-local'
+}
+
+task('foo') {
+  def ciBuildNumber = System.getenv("BUILD_NUMBER") ?: "0"
+  doLast {
+    println "${ciBuildNumber}"
+  }
+}

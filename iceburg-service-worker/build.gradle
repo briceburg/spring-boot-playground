@@ -42,3 +42,11 @@ dependencies {
 test {
   useJUnitPlatform()
 }
+
+task('mkDocker', type: Exec) {
+  def imageTag = System.getenv("PIPELINE_ID") ?: "local-0"
+  //dependsOn assemble
+  group = 'Docker'
+  description 'Builds docker image. Run after assembling the JAR.'
+  commandLine 'docker', 'build', '-t', "${project.name}:${imageTag}", '.'
+}
