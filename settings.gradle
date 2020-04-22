@@ -1,2 +1,2 @@
-include 'iceburg-spring-boot-starter'
 include 'iceburg-service-worker'
+includeBuild('iceburg-spring-boot-starter')

@@ -1,18 +1,13 @@
 plugins {
   id 'org.springframework.boot' version '2.2.6.RELEASE'
   id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+  id "io.freefair.lombok" version "5.0.0"
   id 'java'
 }
 
 group = 'net.iceburg'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '8'
-
-configurations {
-  compileOnly {
-    extendsFrom annotationProcessor
-  }
-}
 
 processResources {
   filesMatching('application.yml') {
@@ -29,10 +24,7 @@ repositories {
 }
 
 dependencies {
-  compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-
-  implementation project(':iceburg-spring-boot-starter')
+  implementation 'net.iceburg:iceburg-spring-boot-starter'
   implementation 'org.springframework.boot:spring-boot-starter'
   testImplementation('org.springframework.boot:spring-boot-starter-test') {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
@@ -44,9 +36,13 @@ test {
 }
 
 task('mkDocker', type: Exec) {
-  def imageTag = System.getenv("PIPELINE_ID") ?: "local-0"
-  //dependsOn assemble
   group = 'Docker'
-  description 'Builds docker image. Run after assembling the JAR.'
-  commandLine 'docker', 'build', '-t', "${project.name}:${imageTag}", '.'
+  description "Assembles JAR and builds docker image"
+  dependsOn assemble
+
+  def imageTag = System.getenv("PIPELINE_ID") ?: "local-0"
+  commandLine 'docker', 'build',
+    '-t', "${project.name}:${imageTag}",
+    '-t', "${project.name}:${version}",
+    '.'
 }
