@@ -1,12 +1,14 @@
 plugins {
-  id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+  id "com.diffplug.gradle.spotless" version "3.28.1"
+  id "io.spring.dependency-management" version "1.0.9.RELEASE"
   id "io.freefair.lombok" version "5.0.0"
-  id 'java-library'
+  id "java-library"
 }
 
 group = 'net.iceburg'
 version = '0.0.9999-SNAPSHOT'
 sourceCompatibility = '8'
+
 
 repositories {
   mavenCentral()
@@ -15,7 +17,7 @@ repositories {
 jar {
   manifest {
     attributes('Implementation-Title':   project.name,
-               'Implementation-Version': version)
+               'Implementation-Version': archiveVersion)
   }
 }
 
@@ -36,6 +38,13 @@ dependencies {
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
+}
+
+spotless {
+  java {
+    target 'src/main/java/**/*.java', 'src/test/java/**/*.java'
+    googleJavaFormat()
+  }
 }
 
 test {

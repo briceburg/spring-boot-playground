@@ -1,8 +1,9 @@
 plugins {
-  id 'org.springframework.boot' version '2.2.6.RELEASE'
-  id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+  id "com.diffplug.gradle.spotless" version "3.28.1"
+  id "org.springframework.boot" version "2.2.6.RELEASE"
+  id "io.spring.dependency-management" version "1.0.9.RELEASE"
   id "io.freefair.lombok" version "5.0.0"
-  id 'java'
+  id "java"
 }
 
 group = 'net.iceburg'
@@ -31,8 +32,11 @@ dependencies {
   }
 }
 
-test {
-  useJUnitPlatform()
+spotless {
+  java {
+    target 'src/main/java/**/*.java', 'src/test/java/**/*.java'
+    googleJavaFormat()
+  }
 }
 
 task('mkDocker', type: Exec) {
@@ -42,7 +46,14 @@ task('mkDocker', type: Exec) {
 
   def imageTag = System.getenv("PIPELINE_ID") ?: "local-0"
   commandLine 'docker', 'build',
-    '-t', "${project.name}:${imageTag}",
-    '-t', "${project.name}:${version}",
-    '.'
+          '-t', "${project.name}:${imageTag}",
+          '-t', "${project.name}:${version}",
+          '.'
 }
+
+test {
+  useJUnitPlatform()
+}
+
+
+
