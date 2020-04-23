@@ -7,7 +7,7 @@ plugins {
 
 group = 'net.iceburg'
 version = '0.0.9999-SNAPSHOT'
-sourceCompatibility = '8'
+sourceCompatibility = '11'
 
 
 repositories {
