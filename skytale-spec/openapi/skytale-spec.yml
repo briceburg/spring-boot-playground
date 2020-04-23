@@ -1,0 +1,114 @@
+openapi: 3.0.3
+info:
+  title: SkyTale API Documentation
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080/
+    description: local development
+  - url: https://skytale.iceburg.net/
+    description: production POC
+
+tags:
+  - name: encode
+    description: encode operations
+  - name: decode
+    description: decode operations
+  - name: admin
+    description: administrative operations
+
+
+paths:
+  /encode:
+    post:
+      operationId: encodeMessage
+      tags:
+        - encode
+      summary: Enqueues message to be encrypted.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EncodeMessageRequest'
+      responses:
+        201:
+          description: Message queued for encryption.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EncodeMessageResponse'
+
+  /decode:
+    post:
+      operationId: decodeMessage
+      tags:
+        - decode
+      summary: Enqueues a request to decrypt an encoded message.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DecodeMessageRequest'
+      responses:
+        201:
+          description: Message queued for decryption.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecodeMessageResponse'
+
+components:
+  schemas:
+
+    DecodeMessageRequest:
+      title: DecodeMessageRequest
+      required:
+        - encode-guid
+      type: object
+      properties:
+        encode-guid:
+          type: string
+          description: GUID of encoded message to decrypt
+          example: f1a59a5d-8b29-4cde-ba10-dc025c7c5042
+        secret:
+          type: string
+          description: client secret added to encryption context. must match the secret provided to the encode request.
+          example: RQ!9*0XCDV5r*a98
+
+    DecodeMessageResponse:
+      title: DecodeMessageResponse
+      required:
+        - decode-guid
+      type: object
+      properties:
+        decode-guid:
+          type: string
+          description: GUID of decrypted message
+          example: 2c9d2718-e573-4de0-bad9-60e4384c4928
+
+    EncodeMessageRequest:
+      title: EncodeMessageRequest
+      required:
+        - message
+        - secret
+      type: object
+      properties:
+        message:
+          type: string
+          description: plaintext message to encrypt
+          example: The chicken has flown the coop. I repeat. The chicken has flown the coop.
+        secret:
+          type: string
+          description: client secret added to encryption context. the same secret must be provided on decode operations.
+          example: RQ!9*0XCDV5r*a98
+
+    EncodeMessageResponse:
+      title: EncodeMessageResponse
+      required:
+        - encode-guid
+      type: object
+      properties:
+        encode-guid:
+          type: string
+          description: GUID of encoded message
+          example: f1a59a5d-8b29-4cde-ba10-dc025c7c5042

@@ -1,0 +1,56 @@
+plugins {
+    id 'java-library'
+    id "org.openapi.generator" version "4.3.0"
+    id "org.springframework.boot" version "2.2.6.RELEASE"
+    id "io.spring.dependency-management" version "1.0.9.RELEASE"
+}
+
+group 'net.iceburg'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    api("io.springfox:springfox-swagger2:2.9.2")
+    api("io.springfox:springfox-swagger-ui:2.9.2")
+    api("org.openapitools:jackson-databind-nullable:0.2.1")
+}
+
+def spec = "$rootDir/openapi/skytale-spec.yml"
+def generatedSourcesDir = "$buildDir/openapi"
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$spec"
+    outputDir = "$generatedSourcesDir"
+
+    // for all configuration options, see:
+    // https://github.com/OpenAPITools/openapi-generator/blob/master/docs/generators/spring.md
+    configOptions = [
+            apiPackage: "net.iceburg.skytale.api",
+            basePackage: "net.iceburg.skytale",
+            configPackage: "net.iceburg.skytale.configuration",
+            invokerPackage: "net.iceburg.skytale.api",
+            modelPackage: "net.iceburg.skytale.model",
+            java8: "true"
+    ]
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir("$generatedSourcesDir/src/main/java")
+        }
+    }
+}
+
+compileJava {
+    dependsOn 'clean','openApiGenerate'
+}
+
+
+
+
