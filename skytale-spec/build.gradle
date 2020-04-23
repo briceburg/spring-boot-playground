@@ -57,8 +57,8 @@ task generateSkytaleApiClient(type: org.openapitools.generator.gradle.plugin.tas
     inputSpec = "$projectDir/src/main/resources/openapi/skytale-api.yml"
     outputDir = skytaleApiClientOutput
 
-    apiPackage = "net.iceburg.skytale.client.api"
-    modelPackage = "net.iceburg.skytale.model.api"
+    apiPackage = "net.iceburg.skytale.openapi.client.api"
+    modelPackage = "net.iceburg.skytale.openapi.client.model"
 
     configOptions = [
             "dateLibrary": "java8",
@@ -72,8 +72,8 @@ task generateSkyTaleApiServer(type: org.openapitools.generator.gradle.plugin.tas
     inputSpec = "$projectDir/src/main/resources/openapi/skytale-api.yml"
     outputDir = skytaleApiServerOutput
 
-    apiPackage = "net.iceburg.skytale.server.api"
-    modelPackage = "net.iceburg.skytale.server.api"
+    apiPackage = "net.iceburg.skytale.openapi.server.api"
+    modelPackage = "net.iceburg.skytale.openapi.server.model"
 
     configOptions = [
             "dateLibrary": "java8",

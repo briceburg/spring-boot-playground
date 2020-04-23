@@ -1,0 +1,11 @@
+---
+spring:
+  application:
+    name: ${project.name}
+  profiles:
+    active:
+      - foo
+
+iceburg:
+  foo: bar
+  #traceEnabled: false

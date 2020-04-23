@@ -75,34 +75,33 @@ components:
   schemas:
 
     DecodeMessageRequest:
-      title: DecodeMessageRequest
-      required:
-        - encode-guid
+      description: Decode Message POST Request
+      type: object
       properties:
-        encode-guid:
-          type: string
-          description: GUID of encoded message to decrypt
+        encode-uuid:
+          description: uuid of encoded message to decrypt
           example: f1a59a5d-8b29-4cde-ba10-dc025c7c5042
+          $ref: "#/components/schemas/UUID"
+
         secret:
           type: string
           description: client secret added to encryption context. must match the secret provided to the encode request.
           example: RQ!9*0XCDV5r*a98
 
+    UUID:
+      type: string
+      format: uuid
+
     DecodeMessageResponse:
-      title: DecodeMessageResponse
-      required:
-        - decode-guid
+      description: Decode Message Response
       properties:
-        decode-guid:
-          type: string
-          description: GUID of decrypted message
+        decode-uuid:
+          description: uuid of decrypted message
           example: 2c9d2718-e573-4de0-bad9-60e4384c4928
+          $ref: "#/components/schemas/UUID"
 
     EncodeMessageRequest:
-      title: EncodeMessageRequest
-      required:
-        - message
-        - secret
+      description: Encode Message POST Request
       properties:
         message:
           type: string
@@ -114,22 +113,43 @@ components:
           example: RQ!9*0XCDV5r*a98
 
     EncodeMessageResponse:
-      title: EncodeMessageResponse
-      required:
-        - encode-guid
+      description: Encode Message Response
       properties:
-        encode-guid:
-          type: string
-          description: GUID of encoded message
+        encode-uuid:
+          description: uuid of encoded message
           example: f1a59a5d-8b29-4cde-ba10-dc025c7c5042
+          $ref: "#/components/schemas/UUID"
 
     Error:
-      required:
-        - code
-        - message
+      description: "Error"
+      type: object
       properties:
         code:
+          description: "HTTP Status Code"
           type: integer
           format: int32
         message:
+          description: "HTTP Status Message"
           type: string
+        description:
+          description: "Error description"
+          type: string
+        invalidParameters:
+          $ref: "#/components/schemas/InvalidParameterArray"
+
+    InvalidParameter:
+      description: "Invalid Parameter"
+      type: object
+      properties:
+        name:
+          description: "Parameter name"
+          type: string
+        description:
+          description: "Parameter description"
+          type: string
+
+    InvalidParameterArray:
+      description: "Invalid parameter list"
+      type: array
+      items:
+        $ref: "#/components/schemas/InvalidParameter"
