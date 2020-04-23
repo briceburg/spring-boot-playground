@@ -4,10 +4,10 @@ info:
   version: 1.0.0
 
 servers:
-  - url: http://localhost:8080/
-    description: local development
-  - url: https://skytale.iceburg.net/
-    description: production POC
+  - url: "{server}"
+    variables:
+      server:
+        default: "http://localhost:8080"
 
 tags:
   - name: encode
@@ -19,13 +19,14 @@ tags:
 
 
 paths:
-  /encode:
+  /v1/encode:
     post:
+      summary: Enqueues message to be encrypted.
       operationId: encodeMessage
       tags:
         - encode
-      summary: Enqueues message to be encrypted.
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -37,14 +38,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EncodeMessageResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
-  /decode:
+  /v1/decode:
     post:
+      summary: Enqueues a request to decrypt an encoded message.
       operationId: decodeMessage
       tags:
         - decode
-      summary: Enqueues a request to decrypt an encoded message.
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -56,6 +64,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DecodeMessageResponse'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 
 components:
   schemas:
@@ -64,7 +78,6 @@ components:
       title: DecodeMessageRequest
       required:
         - encode-guid
-      type: object
       properties:
         encode-guid:
           type: string
@@ -79,7 +92,6 @@ components:
       title: DecodeMessageResponse
       required:
         - decode-guid
-      type: object
       properties:
         decode-guid:
           type: string
@@ -91,7 +103,6 @@ components:
       required:
         - message
         - secret
-      type: object
       properties:
         message:
           type: string
@@ -106,9 +117,19 @@ components:
       title: EncodeMessageResponse
       required:
         - encode-guid
-      type: object
       properties:
         encode-guid:
           type: string
           description: GUID of encoded message
           example: f1a59a5d-8b29-4cde-ba10-dc025c7c5042
+
+    Error:
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
