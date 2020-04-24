@@ -12,11 +12,9 @@ import javax.validation.Valid;
 public class SkytaleApiImpl implements V1Api {
 
     @Override
-    public ResponseEntity<EncodeMessageResponse> encodeMessage(EncodeMessageRequest encodeMessageRequest){
+    public ResponseEntity<EncodeMessageResponse> encodeMessage(EncodeMessageRequest encodeMessageRequest) {
         return V1Api.super.encodeMessage(encodeMessageRequest);
-
     }
-    // default ResponseEntity<EncodeMessageResponse> encodeMessage(@ApiParam(value = "" ,required=true )  @Valid @RequestBody EncodeMessageRequest encodeMessageRequest) {
 }
 
 

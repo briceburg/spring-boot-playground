@@ -1,3 +1,4 @@
 rootProject.name = 'skytale-encode-service'
 includeBuild('../iceburg-spring-boot-starter')
+includeBuild('../skytale-spring-boot-starter')
 includeBuild('../skytale-spec')

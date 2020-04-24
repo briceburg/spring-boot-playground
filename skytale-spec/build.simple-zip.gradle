@@ -1,0 +1,65 @@
+plugins {
+    id "org.openapi.generator" version "4.2.3"
+    id "maven-publish"
+    id "distribution"
+}
+
+group 'net.iceburg'
+version '0.0.1-SNAPSHOT'
+
+def generatedResources = "$projectDir/src/main/dist"
+
+task generateSkytaleApiClient(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+
+    generatorName = "java"
+    inputSpec = "$projectDir/src/main/resources/openapi/skytale-api.yml"
+    outputDir = "$generatedResources/skytale-openapi-client"
+
+    apiPackage = "net.iceburg.skytale.openapi.client.api"
+    modelPackage = "net.iceburg.skytale.openapi.client.model"
+
+    configOptions = [
+            "dateLibrary": "java8",
+            "library": "retrofit2"
+    ]
+}
+
+task generateSkyTaleApiServer(type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+
+    generatorName = "spring"
+    inputSpec = "$projectDir/src/main/resources/openapi/skytale-api.yml"
+    //outputDir = "$generatedResources/skytale-openapi-server"
+    outputDir = "$generatedResources"
+
+    apiPackage = "net.iceburg.skytale.openapi.server.api"
+    modelPackage = "net.iceburg.skytale.openapi.server.model"
+
+    configOptions = [
+            "dateLibrary": "java8",
+            "hideGenerationTimestamp": "true",
+            "interfaceOnly": "true",
+            "java8": "true",
+            "performBeanValidation": "false",
+            "serializableModel": "true",
+            "useBeanValidation": "true",
+            "useOptional": "true"
+    ]
+}
+
+distZip {
+    //dependsOn generateSkyTaleApiServer, generateSkytaleApiClient
+    dependsOn generateSkyTaleApiServer
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact distZip
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
+}
+
+assemble.finalizedBy publishAllPublicationsToMavenLocalRepository, publishToMavenLocal

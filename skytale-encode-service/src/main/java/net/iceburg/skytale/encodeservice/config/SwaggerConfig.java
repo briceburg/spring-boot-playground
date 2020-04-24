@@ -18,14 +18,14 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("net.iceburg.skytale.encodeservice.impl"))
-                .paths(Predicates.not(PathSelectors.regex("^/v1/decode")))
+                //.paths(Predicates.not(PathSelectors.regex("^/v1/decode")))
                 .build()
                 .apiInfo(this.getApiInfo());
     }
 
     private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
-                .title("Skytale Encode Api")
+                .title("Skytale API")
                 .version("1.0")
                 .build();
     }

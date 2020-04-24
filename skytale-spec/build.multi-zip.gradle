@@ -1,0 +1,85 @@
+apply plugin: 'java'
+apply plugin: 'distribution'
+//-----------------------------------------------------------------------------
+// source sets and configurations
+//-----------------------------------------------------------------------------
+sourceSets {
+    main {
+        java {
+            srcDirs = []
+        }
+        resources {
+            srcDirs = []
+        }
+    }
+    common {
+        java {
+            srcDirs = ['src']
+            exclude 'com/relay/server'
+        }
+    }
+    server {
+        java {
+            srcDirs = ['src']
+            exclude 'com/relay/core'
+            exclude 'com/relay/Constants*'
+        }
+        resources {
+            srcDirs = ["${rootDir}/resource/common"]
+            include '*.properties'
+        }
+    }
+}
+configurations {
+    commonCompile {
+        extendsFrom configurations.compile
+    }
+    serverCompile {
+        extendsFrom configurations.compile
+    }
+}
+//-----------------------------------------------------------------------------
+// dependencies
+//-----------------------------------------------------------------------------
+dependencies {
+    compile project(':src/lib')
+    serverCompile project(path:':src/relay', configuration:'commonCompile')
+}
+//-----------------------------------------------------------------------------
+// output (distributions and artifacts)
+//-----------------------------------------------------------------------------
+task commonJar(type: Jar, dependsOn: commonClasses) {
+    baseName 'relay-common'
+    from sourceSets.common.output
+}
+task serverJar(type: Jar, dependsOn: serverClasses) {
+    baseName 'relay-server'
+    from sourceSets.server.output
+    manifest {
+        attributes(
+                'Main-Class': 'com.relay.server.RelayServer'
+        )
+    }
+}
+artifacts {
+    commonCompile commonJar
+    serverCompile serverJar
+}
+distributions {
+    main {
+        baseName = 'relay-server'
+        contents {
+            from configurations.serverRuntime
+            from configurations.serverRuntime.allArtifacts
+        }
+    }
+}
+distZip {
+    dependsOn serverJar
+}
+distTar {
+    enabled = false
+}
+installDist {
+    enabled = false
+}

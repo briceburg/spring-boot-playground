@@ -1,0 +1,84 @@
+plugins {
+  id "com.diffplug.gradle.spotless" version "3.28.1"
+  id "io.spring.dependency-management" version "1.0.9.RELEASE"
+  id "io.freefair.lombok" version "5.0.0"
+  id "java-library"
+}
+
+group = 'net.iceburg'
+version = '0.0.9999-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenLocal()
+  mavenCentral()
+}
+
+ext {
+    retrofitVersion = "2.5.0"
+    springFoxVersion = "2.9.2"
+
+    libs = [
+            openApiClient : [
+                    "org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.1",
+                    "com.google.code.findbugs:jsr305:3.0.2",
+                    "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+                    "com.squareup.retrofit2:converter-scalars:$retrofitVersion",
+                    "com.squareup.retrofit2:retrofit:$retrofitVersion",
+                    "io.gsonfire:gson-fire:1.8.3"
+            ],
+            openApiServer : [
+                    "org.openapitools:jackson-databind-nullable:0.2.1"
+            ],
+            springBoot : [
+                    "org.springframework.boot:spring-boot-starter",
+                    "org.springframework.boot:spring-boot-starter-web"
+            ],
+            swagger : [
+                    "io.springfox:springfox-swagger2:$springFoxVersion",
+                    "io.springfox:springfox-swagger-ui:$springFoxVersion"
+            ]
+    ]
+}
+
+dependencies {
+    // we can probably client out the client deps
+    api libs.openApiClient
+    api libs.openApiServer
+    api libs.swagger
+    api libs.springBoot
+    api 'net.iceburg:skytale-spec:0.0.1-SNAPSHOT'
+
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.2.6.RELEASE')
+
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+spotless {
+  java {
+    target 'src/main/java/**/*.java', 'src/test/java/**/*.java'
+    //googleJavaFormat()
+  }
+}
+
+test {
+  useJUnitPlatform()
+}
+
+
+configurations {
+    zipped
+}
+
+
+// just for checking that it worked
+task printClasspath {
+    dependsOn configurations.compile
+    doLast {
+        configurations.compile.each {
+            println it
+        }
+    }
+}

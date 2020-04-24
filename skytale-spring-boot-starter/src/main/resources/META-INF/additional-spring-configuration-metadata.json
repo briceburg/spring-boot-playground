@@ -1,0 +1,9 @@
+{
+  "properties": [
+    {
+      "name": "skytale.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Demo Description."
+    }
+  ]
+}

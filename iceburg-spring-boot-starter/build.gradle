@@ -1,6 +1,5 @@
 plugins {
   id "com.diffplug.gradle.spotless" version "3.28.1"
-  id "io.spring.dependency-management" version "1.0.9.RELEASE"
   id "io.freefair.lombok" version "5.0.0"
   id "java-library"
 }
@@ -30,7 +29,7 @@ dependencies {
   api 'software.amazon.awssdk:sqs'
 
   implementation platform('org.springframework.boot:spring-boot-dependencies:2.2.6.RELEASE')
-	implementation 'org.springframework.boot:spring-boot-starter'
+  implementation 'org.springframework.boot:spring-boot-starter'
   implementation 'org.springframework.boot:spring-boot-starter-logging'
 
   implementation 'net.logstash.logback:logstash-logback-encoder:6.3'
@@ -43,7 +42,7 @@ dependencies {
 spotless {
   java {
     target 'src/main/java/**/*.java', 'src/test/java/**/*.java'
-    googleJavaFormat()
+    //googleJavaFormat()
   }
 }
 
