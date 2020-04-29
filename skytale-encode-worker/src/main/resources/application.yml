@@ -1,7 +1,13 @@
 ---
+camel:
+  springboot:
+    main-run-controller: true
+
 spring:
   application:
     name: ${project.name}
+  main:
+    web-application-type: NONE
   profiles:
     active:
       - local
