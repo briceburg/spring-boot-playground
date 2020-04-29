@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-  implementation  'net.iceburg:skytale-spec:0.0.2-SNAPSHOT'
+  implementation 'net.iceburg:skytale-spec:0.0.3-SNAPSHOT'
   implementation 'net.iceburg:iceburg-spring-boot-starter'
   implementation 'net.iceburg:skytale-spring-boot-starter'
 

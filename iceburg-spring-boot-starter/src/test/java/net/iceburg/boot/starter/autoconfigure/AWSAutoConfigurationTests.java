@@ -1,7 +1,5 @@
 package net.iceburg.boot.starter.autoconfigure;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -11,6 +9,8 @@ import software.amazon.awssdk.services.s3.S3AsyncClient;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sqs.SqsClient;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 // @SpringBootTest
 public class AWSAutoConfigurationTests {

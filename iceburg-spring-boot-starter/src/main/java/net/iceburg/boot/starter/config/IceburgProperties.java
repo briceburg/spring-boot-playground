@@ -1,8 +1,9 @@
 package net.iceburg.boot.starter.config;
 
-import java.util.List;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.List;
 
 @Data
 @ConfigurationProperties("iceburg")

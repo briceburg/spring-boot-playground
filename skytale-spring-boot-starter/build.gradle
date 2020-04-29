@@ -17,6 +17,10 @@ dependencies {
     api 'org.springframework.boot:spring-boot-starter'
     api 'org.springframework.boot:spring-boot-starter-web'
 
+    api 'org.apache.camel:camel-endpointdsl:3.2.0'
+    api 'org.apache.camel.springboot:camel-aws2-sqs-starter:3.2.0'
+    // thank heavens - https://camel.apache.org/blog/Camel3-AWS2-Whatsnew/
+
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

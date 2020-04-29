@@ -19,6 +19,135 @@ tags:
 
 
 paths:
+  /admin/secrets/{uuid}:
+    get:
+      summary: Returns the encoded message ciphertext from the secrets bucket.
+      operationId: getSecret
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: "uuid"
+          required: true
+          description: "UUID of encrypted message."
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        200:
+          description: Message Ciphertext
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: TBD...
+          headers:
+            X-S3-Bucket-Name:
+              description: Name of the S3 bucket storing message.
+              schema:
+                type: string
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    head:
+      summary: Confirms the existence of an encoded secret in the secrets bucket.
+      operationId: secretExists
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: "uuid"
+          required: true
+          description: "UUID of encrypted message."
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        204:
+          description: Message Details.
+          headers:
+            Content-Length:
+              description: Message Lengths
+              schema:
+                type: integer
+            X-S3-Bucket-Name:
+              description: Name of the S3 bucket storing message.
+              schema:
+                type: string
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /admin/plaintext/{uuid}:
+    get:
+      summary: Returns the message plaintext from the decode bucket.
+      operationId: getDecodedSecret
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: "uuid"
+          required: true
+          description: "UUID of decode message."
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        200:
+          description: Message Plaintext
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: the chicken has flown the coopy
+          headers:
+            X-S3-Bucket-Name:
+              description: Name of the S3 bucket storing message.
+              schema:
+                type: string
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+    head:
+      summary: Confirms the existence of an decoded secret in the decode bucket.
+      operationId: decodedSecretExists
+      tags:
+        - admin
+      parameters:
+        - in: path
+          name: "uuid"
+          required: true
+          description: "UUID of decoded message."
+          schema:
+            $ref: "#/components/schemas/UUID"
+      responses:
+        204:
+          description: Message Details.
+          headers:
+            Content-Length:
+              description: Message Lengths
+              schema:
+                type: integer
+            X-S3-Bucket-Name:
+              description: Name of the S3 bucket storing message.
+              schema:
+                type: string
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
   /v1/encode:
     post:
       summary: Enqueues message to be encrypted.
@@ -78,7 +207,7 @@ components:
       description: Decode Message POST Request
       type: object
       properties:
-        encode-uuid:
+        uuid:
           description: uuid of encoded message to decrypt
           example: f1a59a5d-8b29-4cde-ba10-dc025c7c5042
           $ref: "#/components/schemas/UUID"
@@ -95,7 +224,7 @@ components:
     DecodeMessageResponse:
       description: Decode Message Response
       properties:
-        decode-uuid:
+        uuid:
           description: uuid of decrypted message
           example: 2c9d2718-e573-4de0-bad9-60e4384c4928
           $ref: "#/components/schemas/UUID"
@@ -115,7 +244,7 @@ components:
     EncodeMessageResponse:
       description: Encode Message Response
       properties:
-        encode-uuid:
+        uuid:
           description: uuid of encoded message
           example: f1a59a5d-8b29-4cde-ba10-dc025c7c5042
           $ref: "#/components/schemas/UUID"

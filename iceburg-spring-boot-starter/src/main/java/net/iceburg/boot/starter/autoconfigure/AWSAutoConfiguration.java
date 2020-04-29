@@ -1,6 +1,5 @@
 package net.iceburg.boot.starter.autoconfigure;
 
-import java.net.URI;
 import net.iceburg.boot.starter.AskJeeves;
 import net.iceburg.boot.starter.config.LocalProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,8 @@ import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.SnsClientBuilder;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.SqsClientBuilder;
+
+import java.net.URI;
 
 @Configuration
 @ConditionalOnClass(S3Client.class)

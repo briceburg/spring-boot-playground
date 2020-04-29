@@ -1,7 +1,5 @@
 package net.iceburg.boot.starter.autoconfigure;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import net.iceburg.boot.starter.SayHello;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,6 +8,8 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.context.annotation.Configuration;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(OutputCaptureExtension.class)
 public class SayHelloAutoConfigurationTests {

@@ -4,8 +4,12 @@ spring:
     name: ${project.name}
   profiles:
     active:
-      - foo
+      - local
 
 iceburg:
   foo: bar
   #traceEnabled: false
+
+skytale:
+  encodeQueue: ${project.name}-encode
+  decodeQueue: ${project.name}-decode

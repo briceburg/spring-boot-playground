@@ -1,9 +1,5 @@
 package net.iceburg.boot.starter;
 
-import static net.logstash.logback.argument.StructuredArguments.kv;
-import static net.logstash.logback.argument.StructuredArguments.v;
-
-import java.time.Instant;
 import lombok.extern.slf4j.Slf4j;
 import net.iceburg.boot.starter.config.IceburgConstant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +9,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+
+import java.time.Instant;
+
+import static net.logstash.logback.argument.StructuredArguments.kv;
+import static net.logstash.logback.argument.StructuredArguments.v;
 
 @Slf4j
 @Component

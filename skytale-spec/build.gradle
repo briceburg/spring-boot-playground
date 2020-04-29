@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'net.iceburg'
-version '0.0.2-SNAPSHOT'
+version '0.0.3-SNAPSHOT'
 sourceCompatibility = '11'
 
 repositories {
@@ -82,10 +82,11 @@ task generateSkyTaleApiServer(type: org.openapitools.generator.gradle.plugin.tas
             "hideGenerationTimestamp": "true",
             "interfaceOnly": "true",
             "java8": "true",
+            "singleContentTypes": "true",
             "performBeanValidation": "false",
             "serializableModel": "true",
             "useBeanValidation": "true",
-            "useOptional": "true"
+            "unhandledException": "true",
     ]
 }
 
@@ -93,8 +94,8 @@ task generateSkyTaleApiServer(type: org.openapitools.generator.gradle.plugin.tas
 sourceSets.main.java.srcDir "$skytaleApiServerOutput/src/main/java"
 
 compileJava {
-    //dependsOn 'generateSkyTaleApiServer','generateSkytaleApiClient'
-    dependsOn 'generateSkyTaleApiServer'
+    //dependsOn 'clean', 'generateSkyTaleApiServer','generateSkytaleApiClient'
+    dependsOn 'clean', 'generateSkyTaleApiServer'
 }
 
 
@@ -106,4 +107,4 @@ publishing {
     }
 }
 
-assemble.finalizedBy publishToMavenLocal
+compileJava.finalizedBy publishToMavenLocal
