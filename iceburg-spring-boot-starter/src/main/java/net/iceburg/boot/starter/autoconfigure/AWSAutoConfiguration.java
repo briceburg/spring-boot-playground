@@ -14,10 +14,7 @@ import software.amazon.awssdk.awscore.client.builder.AwsClientBuilder;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.kms.KmsClient;
 import software.amazon.awssdk.services.kms.KmsClientBuilder;
-import software.amazon.awssdk.services.s3.S3AsyncClient;
-import software.amazon.awssdk.services.s3.S3AsyncClientBuilder;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.S3ClientBuilder;
+import software.amazon.awssdk.services.s3.*;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.SnsClientBuilder;
 import software.amazon.awssdk.services.sqs.SqsClient;
@@ -51,6 +48,13 @@ public class AWSAutoConfiguration {
   public S3AsyncClient s3AsyncClient() {
     S3AsyncClientBuilder builder = S3AsyncClient.builder();
     this.decorateBuilder(builder, localProperties.awsS3Endpoint);
+    if (askJeeves.isProfileActive("local")) {
+      builder.serviceConfiguration(S3Configuration.builder()
+              .pathStyleAccessEnabled(true)
+              .checksumValidationEnabled(false)  // minio be bad: https://github.com/minio/minio/issues/7642
+              .build()
+      );
+    }
     return builder.build();
   }
 
@@ -59,6 +63,13 @@ public class AWSAutoConfiguration {
   public S3Client s3Client() {
     S3ClientBuilder builder = S3Client.builder();
     this.decorateBuilder(builder, localProperties.awsS3Endpoint);
+    if (askJeeves.isProfileActive("local")) {
+      builder.serviceConfiguration(S3Configuration.builder()
+              .pathStyleAccessEnabled(true)
+              .checksumValidationEnabled(false) // minio be bad: https://github.com/minio/minio/issues/7642
+              .build()
+      );
+    }
     return builder.build();
   }
 
