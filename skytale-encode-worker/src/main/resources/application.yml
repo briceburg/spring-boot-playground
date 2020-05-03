@@ -1,4 +1,6 @@
 ---
+# defaults for all profiles
+
 camel:
   springboot:
     main-run-controller: true
@@ -11,11 +13,3 @@ spring:
   profiles:
     active:
       - local
-
-iceburg:
-  foo: bar
-  #traceEnabled: false
-
-skytale:
-  encodeQueue: skytale-encode
-  decodeQueue: skytale-decode
