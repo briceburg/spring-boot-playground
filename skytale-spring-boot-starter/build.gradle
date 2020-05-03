@@ -17,7 +17,6 @@ repositories {
 dependencies {
     implementation platform('org.springframework.boot:spring-boot-dependencies:2.2.6.RELEASE')
     api 'org.springframework.boot:spring-boot-starter'
-    api 'org.springframework.boot:spring-boot-starter-web'
 
     api platform('org.apache.camel.springboot:camel-spring-boot-dependencies:3.2.0')
     api 'org.apache.camel.springboot:camel-aws2-s3-starter'

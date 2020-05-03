@@ -47,7 +47,7 @@ dependencies {
     api libs.openApiServer
     api libs.swagger
     api libs.springBoot
-    api 'net.iceburg:skytale-spec:0.0.1-SNAPSHOT'
+    api 'net.iceburg:skytale-api-spec:0.0.1-SNAPSHOT'
 
     implementation platform('org.springframework.boot:spring-boot-dependencies:2.2.6.RELEASE')
 

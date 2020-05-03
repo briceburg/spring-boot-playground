@@ -11,6 +11,11 @@ import java.io.Serializable;
 import java.util.UUID;
 
 
+/**
+ * left as reference.
+ * @deprecated
+ */
+@Deprecated
 public class SkytaleUUIDWriter {
     @Autowired
     private ObjectMapper objectMapper;

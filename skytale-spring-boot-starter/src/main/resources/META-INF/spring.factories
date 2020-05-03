@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  net.iceburg.skytale.starter.autoconfigure.HomeControllerAutoConfiguration,\
   net.iceburg.skytale.starter.autoconfigure.SkytalePropertiesAutoConfiguration,\
   net.iceburg.skytale.starter.autoconfigure.SkytaleUUIDWriterAutoConfiguration

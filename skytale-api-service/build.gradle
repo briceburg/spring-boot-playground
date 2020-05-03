@@ -10,29 +10,32 @@ group = 'net.iceburg'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-processResources {
-  filesMatching('application.yml') {
-    expand(project.properties)
-  }
-}
-
-springBoot {
-  buildInfo()
-}
-
 repositories {
   mavenLocal()
   mavenCentral()
 }
 
 dependencies {
-  implementation 'net.iceburg:skytale-spec:0.0.3-SNAPSHOT'
+  implementation 'net.iceburg:skytale-api-spec:0.0.3-SNAPSHOT'
   implementation 'net.iceburg:iceburg-spring-boot-starter'
   implementation 'net.iceburg:skytale-spring-boot-starter'
+
+  implementation platform('org.springframework.boot:spring-boot-dependencies:2.2.6.RELEASE')
+  implementation 'org.springframework.boot:spring-boot-starter-web'
 
   testImplementation('org.springframework.boot:spring-boot-starter-test') {
     exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
   }
+}
+
+//processResources {
+//  filesMatching('application.yml') {
+//    expand(project.properties)
+//  }
+//}
+
+springBoot {
+  buildInfo()
 }
 
 spotless {

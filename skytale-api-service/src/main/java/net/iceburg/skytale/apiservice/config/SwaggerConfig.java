@@ -1,4 +1,4 @@
-package net.iceburg.skytale.encodeservice.config;
+package net.iceburg.skytale.apiservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("net.iceburg.skytale.encodeservice.impl"))
+                .apis(RequestHandlerSelectors.basePackage("net.iceburg.skytale.apiservice.impl"))
                 //.paths(Predicates.not(PathSelectors.regex("^/v1/decode")))
                 .build()
                 .apiInfo(this.getApiInfo());

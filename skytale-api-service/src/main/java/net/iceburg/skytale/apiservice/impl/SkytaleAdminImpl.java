@@ -1,4 +1,4 @@
-package net.iceburg.skytale.encodeservice.impl;
+package net.iceburg.skytale.apiservice.impl;
 
 import net.iceburg.skytale.openapi.server.api.AdminApi;
 import org.springframework.web.bind.annotation.RestController;

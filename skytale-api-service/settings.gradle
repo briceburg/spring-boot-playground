@@ -1,4 +1,4 @@
-rootProject.name = 'skytale-encode-service'
+rootProject.name = 'skytale-api-service'
 includeBuild('../iceburg-spring-boot-starter')
 includeBuild('../skytale-spring-boot-starter')
-includeBuild('../skytale-spec')
+includeBuild('../skytale-api-spec')
