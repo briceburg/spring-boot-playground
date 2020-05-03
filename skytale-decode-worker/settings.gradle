@@ -1,0 +1,3 @@
+rootProject.name = 'skytale-decode-worker'
+includeBuild('../iceburg-spring-boot-starter')
+includeBuild('../skytale-spring-boot-starter')

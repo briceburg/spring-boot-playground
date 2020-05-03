@@ -28,7 +28,7 @@ public class EncodeOMatic {
 
         EncryptRequest encryptRequest = EncryptRequest.builder()
                 .keyId(skytaleProperties.kmsKeyId)
-                .plaintext(SdkBytes.fromByteArray(encodeMessage.getSecretBytes().toByteArray()))
+                .plaintext(SdkBytes.fromByteArray(encodeMessage.getMessageBytes().toByteArray()))
                 .encryptionContext(Collections.singletonMap("secret", encodeMessage.getSecret()))
                 .build();
 

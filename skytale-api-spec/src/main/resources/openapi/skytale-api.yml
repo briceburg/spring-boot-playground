@@ -216,6 +216,9 @@ components:
           type: string
           description: client secret added to encryption context. must match the secret provided to the encode request.
           example: RQ!9*0XCDV5r*a98
+      required:
+        - uuid
+        - secret
 
     UUID:
       type: string
@@ -240,6 +243,9 @@ components:
           type: string
           description: client secret added to encryption context. the same secret must be provided on decode operations.
           example: RQ!9*0XCDV5r*a98
+      required:
+        - message
+        - secret
 
     EncodeMessageResponse:
       description: Encode Message Response

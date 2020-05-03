@@ -4,12 +4,13 @@ package skytale;
 option java_package = "net.iceburg.skytale.protobuf";
 
 message EncodeMessage {
-    string uuid = 1; // UUID to encode message as
+    string uuid = 1; // UUID of encoded "secret" message
     string message = 2;
     string secret = 3;
 }
 
 message DecodeMessage {
-    string uuid = 1; // UUID of encoded message
+    string uuid = 1; // UUID of decoded "plaintext" message
     string secret = 2;
+    string encode_message_uuid = 3; // UUID of encoded "secret" message
 }

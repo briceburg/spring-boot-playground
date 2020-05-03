@@ -28,7 +28,7 @@ public class CamelRoutes extends EndpointRouteBuilder {
 
         from(direct("decodeQueue"))
                 .marshal(format)
-                .to(aws2Sqs(skytaleProperties.queueNames.encode));
+                .to(aws2Sqs(skytaleProperties.queueNames.decode));
     }
 
 }

@@ -1,0 +1,14 @@
+---
+# the local profile is activated by default in developer environments
+
+skytale:
+  bucketNames:
+    encode: skytale-local-encode
+    decode: skytale-local-decode
+
+  kmsKeyId: 49c5492b-b1bc-42a8-9a5c-b2015e810c1c # from local fixture
+
+  queueNames:
+    encode: skytale-local-encode
+    decode: skytale-local-decode
+

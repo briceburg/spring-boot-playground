@@ -14,7 +14,7 @@ import software.amazon.awssdk.services.s3.S3Client;
 
 @Component
 @EnableConfigurationProperties({ SkytaleProperties.class })
-public class EncodeQueueRoute extends EndpointRouteBuilder {
+public class CamelRoutes extends EndpointRouteBuilder {
     @Autowired
     private SkytaleProperties skytaleProperties;
 

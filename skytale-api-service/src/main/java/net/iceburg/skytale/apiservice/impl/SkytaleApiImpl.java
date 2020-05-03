@@ -51,6 +51,7 @@ public class SkytaleApiImpl implements V1Api {
         SkytaleMessages.DecodeMessage decodeMessage = SkytaleMessages.DecodeMessage.newBuilder()
                 .setUuid(uuid.toString())
                 .setSecret(decodeMessageRequest.getSecret())
+                .setEncodeMessageUuid(decodeMessageRequest.getUuid().toString())
                 .build();
 
         // ship the message to SQS as protobuf message, as alternative to encodeQueue we will marshall to JSON in route
