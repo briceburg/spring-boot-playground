@@ -1,4 +1,10 @@
 ---
+# defaults for all profiles
+
+iceburg:
+  foo: bar
+  #traceEnabled: false
+
 spring:
   application:
     name: ${project.name}
@@ -6,10 +12,5 @@ spring:
     active:
       - local
 
-iceburg:
-  foo: bar
-  #traceEnabled: false
 
-skytale:
-  encodeQueue: skytale-encode
-  decodeQueue: skytale-decode
+

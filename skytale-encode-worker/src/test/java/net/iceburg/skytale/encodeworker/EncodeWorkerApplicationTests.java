@@ -1,4 +1,4 @@
-package net.iceburg.skytale.encodeservice;
+package net.iceburg.skytale.encodeworker;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

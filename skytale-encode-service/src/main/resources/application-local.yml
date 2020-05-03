@@ -1,0 +1,7 @@
+---
+# the local profile is activated by default in developer environments
+
+skytale:
+  queueNames:
+    encode: skytale-local-encode
+    decode: skytale-local-decode
